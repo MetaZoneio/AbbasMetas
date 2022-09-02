@@ -1,12 +1,12 @@
 
-export class YourMetaName implements ISystem {
+export class GlassHouse implements ISystem {
   META_ID = 0 // Change to your MetaZone meta number identifier
 
   api = null
   host = null
 
-  /// --- Lets make a Cube ---
-  cube = null
+  /// --- Lets make a 3D model ---
+  metaEntity = null
 
   /**
    * Initial scene setup, create all objects in the constructor.
@@ -23,21 +23,20 @@ export class YourMetaName implements ISystem {
     ///////// Your static scene assets ///////////
     // Initialize all scene entities here
 
-    /// --- Load your resources from your meta folder ---
-    let myTexture = new Texture('metas/yourmetaname/materials/yourtexture.png')
-
-    /// --- Lets spawn the Cube ---
-    this.cube = new Entity()
-    this.cube.addComponent(new BoxShape())
-    this.cube.addComponent(new Material())
-    this.cube.getComponent(Material).albedoTexture = myTexture
-    this.cube.getComponent(Material).transparencyMode = 2
-    this.cube.addComponent(new Transform({
-      position: new Vector3(0, 2, 0)
+    /// --- Lets spawn a 3d model ---
+    this.metaEntity = new Entity()
+    this.metaEntity.addComponent(new Transform({
+      position: new Vector3(8, 0, 8)
     }))
-    // Make sure to set the parent to the main this.metaEntity of each unique
-    // entity, so when an owner moves the meta, everything moves with it.
-    engine.addEntity(this.cube)
+    engine.addEntity(this.metaEntity)
+
+    const modelEntity = new Entity()
+    modelEntity.addComponent(new GLTFShape('metas/glasshouse/models/collider test xx.glb'))
+    modelEntity.addComponent(new Transform({
+      position: new Vector3(8.5, 0, 6.7),
+      scale: new Vector3(1.2, 1.2, 1.2)
+    }))
+    modelEntity.setParent(this.metaEntity)
 
     ///////// Your static scene assets ///////////
 
@@ -54,10 +53,7 @@ export class YourMetaName implements ISystem {
    * @param dt     Delta time since last update
    */
   update(dt: number) {
-
-    /// --- Lets continually rotate our Cube ---
-    this.cube.getComponent(Transform).rotate(Vector3.Up(), dt * 10)
-
+    // Note: your code that repeats goes here
   }
 
   /**
@@ -78,21 +74,21 @@ export class YourMetaName implements ISystem {
       ///////// Your landowner adjustable content ///////////
       // You decide which of your creation's entities the landowner can adjust.
 
-      /// --- Lets adjust our Cube ---
-      this.cube.getComponent(Transform).position.set(
-        host_data.cube.position.x,
-        host_data.cube.position.y,
-        host_data.cube.position.z
+      /// --- Lets adjust our 3d model ---
+      this.metaEntity.getComponent(Transform).position.set(
+        host_data.GlassHouse.position.x,
+        host_data.GlassHouse.position.y,
+        host_data.GlassHouse.position.z
       )
-      this.cube.getComponent(Transform).rotation.setEuler(
-        host_data.cube.rotation.x,
-        host_data.cube.rotation.y,
-        host_data.cube.rotation.z
+      this.metaEntity.getComponent(Transform).rotation.setEuler(
+        host_data.GlassHouse.rotation.x,
+        host_data.GlassHouse.rotation.y,
+        host_data.GlassHouse.rotation.z
       )
-      this.cube.getComponent(Transform).scale.set(
-        host_data.cube.scale.x,
-        host_data.cube.scale.y,
-        host_data.cube.scale.z
+      this.metaEntity.getComponent(Transform).scale.set(
+        host_data.GlassHouse.scale.x,
+        host_data.GlassHouse.scale.y,
+        host_data.GlassHouse.scale.z
       )
 
       ///////// Your landowner adjustable content ///////////
