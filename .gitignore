@@ -1,0 +1,12 @@
+# Dependency directory
+node_modules
+
+# Decentraland
+export
+
+# Build
+bin
+package-lock.json
+
+# Local
+.DS_Store
